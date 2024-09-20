@@ -128,6 +128,13 @@ static const BOOL gTestEnableAudio = YES;
   return @{};
 }
 
+- (nullable NSDictionary<NSString *, id> *)
+    recommendedVideoSettingsForVideoCodecType:(AVVideoCodecType)codecType
+                    assetWriterOutputFileType:(AVFileType)fileType
+                                    forOutput:(AVCaptureVideoDataOutput *)output {
+  return @{};
+}
+
 @end
 
 @implementation CameraSettingsTests

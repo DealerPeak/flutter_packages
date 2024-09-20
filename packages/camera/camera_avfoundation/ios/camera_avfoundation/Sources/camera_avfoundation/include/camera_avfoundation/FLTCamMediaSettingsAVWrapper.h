@@ -107,6 +107,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSDictionary<NSString *, id> *)
     recommendedVideoSettingsForAssetWriterWithFileType:(AVFileType)fileType
                                              forOutput:(AVCaptureVideoDataOutput *)output;
+
+/**
+ * @method recommendedVideoSettingsForVideoCodecType:assetWriterOutputFileType:forOutput:
+ * @abstract Specifies the recommended video settings for `AVCaptureVideoDataOutput`.
+ * @param codecType Specifies the video codec type (see AVVideoCodec.h for a list of video codec
+ * @param fileType Specifies the UTI of the file type to be written (see AVMediaFormat.h for a list
+ * of file format UTIs).
+ * @param output The `AVCaptureVideoDataOutput` instance.
+ * @result A fully populated dictionary of keys and values that are compatible with AVAssetWriter.
+ */
+- (nullable NSDictionary<NSString *, id> *)
+    recommendedVideoSettingsForVideoCodecType:(AVVideoCodecType)codecType
+                    assetWriterOutputFileType:(AVFileType)fileType
+                                    forOutput:(AVCaptureVideoDataOutput *)output;
 @end
 
 NS_ASSUME_NONNULL_END

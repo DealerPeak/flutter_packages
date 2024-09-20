@@ -1244,9 +1244,19 @@ NSString *const errorMethod = @"error";
     return NO;
   }
 
-  NSMutableDictionary<NSString *, id> *videoSettings = [[_mediaSettingsAVWrapper
-      recommendedVideoSettingsForAssetWriterWithFileType:AVFileTypeMPEG4
-                                               forOutput:_captureVideoOutput] mutableCopy];
+  NSMutableDictionary<NSString *, id> *videoSettings;
+  if (@available(iOS 11.0, *)) {
+      // Force H.264 codec for iOS 11 and later
+      videoSettings = [[_mediaSettingsAVWrapper
+          recommendedVideoSettingsForVideoCodecType:AVVideoCodecTypeH264
+                          assetWriterOutputFileType:AVFileTypeMPEG4
+                                          forOutput:_captureVideoOutput] mutableCopy];
+  } else {
+      // Fallback for older iOS versions
+      videoSettings = [[_mediaSettingsAVWrapper
+          recommendedVideoSettingsForAssetWriterWithFileType:AVFileTypeMPEG4
+                                                  forOutput:_captureVideoOutput] mutableCopy];
+  }
 
   if (_mediaSettings.videoBitrate || _mediaSettings.framesPerSecond) {
     NSMutableDictionary *compressionProperties = [[NSMutableDictionary alloc] init];
